@@ -60,6 +60,8 @@ function displayTotal(partyShare, soloBill) {
 function checkTipPercent(tipPercent) {
     if (tipPercent == 1) {
         realTipPercent = .01
+    } else if (tipPercent == 0) {
+        realTipPercent = 0
     } else if (tipPercent > 1) {
         realTipPercent = tipPercent / 100
     } else {
