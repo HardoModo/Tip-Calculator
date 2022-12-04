@@ -1,13 +1,3 @@
-let partyNum
-let billSum
-let billTotal
-let partyShare
-let tipPercent
-let soloBill = Array.new
-let soloBillTotal
-let soloLength
-let soloNum
-
 function fillSoloArray(soloBill) {
     /* This function will fill the soloBill function with the guests that want to pay for their checks seperately */
 }
@@ -31,7 +21,7 @@ function calcBillSum(billSum, soloBillTotal) {
     return billSum
 }
 
-function calcPartyShare(billSum, partyShare, partyNum) {
+function calcPartyShare(billSum, partyNum, tipPercent) {
     billTotal = billSum * tipPercent
     partyShare = billTotal / partyNum
     return partyShare
@@ -53,6 +43,22 @@ function displayTotal(partyShare, soloBill) {
     /* There should possibly be a loop here based off the amount of solo bill payers that displays
     the amount each solo bill payer should pay 
     */
+}
+
+function test() {
+    var billSum = document.getElementById("billSum").value
+    var partyNum = document.getElementById("partyNum").value
+    var billTotal
+    var partyShare
+    var tipPercent = document.getElementById("tipPercent").value
+    let soloBill = Array.new
+    let soloBillTotal
+    let soloLength
+    let soloNum
+
+    calcPartyShare(billSum, partyNum, tipPercent)
+
+    console.log(`Each party member should pay: ${partyShare}`)
 }
 
 /* Does anyone want to pay for their own food?
