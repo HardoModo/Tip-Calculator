@@ -1,3 +1,15 @@
+var billSum
+var partyNum
+var billTotal
+var partyShare
+var tipPercent
+var realTipPercent
+var soloBill = Array.new
+var soloBillTotal
+var soloLength
+var soloNum
+var billDisplay = document.getElementById("billDisplay")
+
 function fillSoloArray(soloBill) {
     /* This function will fill the soloBill function with the guests that want to pay for their checks seperately */
 }
@@ -22,7 +34,7 @@ function calcBillSum(billSum, soloBillTotal) {
 }
 
 function calcPartyShare(billSum, partyNum, tipPercent) {
-    billTotal = billSum * tipPercent
+    billTotal = billSum * (1 + tipPercent)
     partyShare = billTotal / partyNum
     return partyShare
 }
@@ -45,20 +57,24 @@ function displayTotal(partyShare, soloBill) {
     */
 }
 
+function checkTipPercent(tipPercent) {
+    if (tipPercent == 1) {
+        realTipPercent = .01
+    } else if (tipPercent > 1) {
+        realTipPercent = tipPercent / 100
+    } else {
+        realTipPercent = tipPercent }
+}
+
 function test() {
-    var billSum = document.getElementById("billSum").value
-    var partyNum = document.getElementById("partyNum").value
-    var billTotal
-    var partyShare
-    var tipPercent = document.getElementById("tipPercent").value
-    let soloBill = Array.new
-    let soloBillTotal
-    let soloLength
-    let soloNum
+    billSum = document.getElementById("billSum").value
+    partyNum = document.getElementById("partyNum").value
+    tipPercent = document.getElementById("tipPercent").value
 
-    calcPartyShare(billSum, partyNum, tipPercent)
+    checkTipPercent(tipPercent)
+    calcPartyShare(billSum, partyNum, realTipPercent)
 
-    console.log(`Each party member should pay: ${partyShare}`)
+    billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
 }
 
 /* Does anyone want to pay for their own food?
