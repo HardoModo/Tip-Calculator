@@ -12,11 +12,12 @@
     <h1>This is a tip calculator</h1>
 
     <label for="soloBill">Would anyone like to pay for their own meal?</label><br>
-    <input type="radio" id="yes" name="soloBill" value="Yes">
+    <input type="radio" id="solo-yes" name="soloBill" value="Yes">
     <label for="solo-yes">Yes</label>
-    <input type="radio" id="no" name="soloBill" value="No">
+    <input type="radio" id="solo-no" name="soloBill" value="No" onclick="yesnoCheck()">
     <label for="solo-no">No</label><br><br>
 
+<div id="solo-no-true">
     <label for="">Is anyone planning to pay for someone else?</h2><label><br>
     <input type="radio" id="yes" name="cover-pay" value="Yes">
     <label for="yes">Yes</label>
@@ -40,8 +41,10 @@
     <input type="radio" id="no" name="confirm-pay" value="No">
     <label for="paid-no">No</label><br><br>
 
-    <button type="button" id="Test" onclick="test()">Test Me</button>
+    <button type="button" id="Test" onclick="test()">Click Me</button>
+</div>
 
     <script src="tipcalc.js"></script>
 </body>
+
 </html>

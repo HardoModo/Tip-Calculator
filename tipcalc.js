@@ -79,6 +79,14 @@ function test() {
     billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
 }
 
+function yesnoCheck() {
+    if (document.getElementById('solo-no').checked) {
+        document.getElementById('solo-no-true').style.display = none;
+    } else {
+        document.getElementById('solo-no-true').style.display = block;
+    }
+}
+
 /* Does anyone want to pay for their own food?
 Is anyone paying for someone else?
 Has everyone paid?
