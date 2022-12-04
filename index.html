@@ -11,17 +11,23 @@
 <body>
     <h1>This is a tip calculator</h1>
 
+    <label for="soloBill">Would anyone like to pay for their own meal?</label><br>
+    <input type="radio" id="yes" name="soloBill" value="Yes">
+    <label for="solo-yes">Yes</label>
+    <input type="radio" id="no" name="soloBill" value="No">
+    <label for="solo-no">No</label><br><br>
+
+    <label for="">Is anyone planning to pay for someone else?</h2><label><br>
+    <input type="radio" id="yes" name="" value="Yes">
+    <label for="yes">Yes</label>
+    <input type="radio" id="no" name="" value="No">
+    <label for="no">No</label><br><br>
+
     <label for="billSum">How much was the bill without the tip?</label><br>
     <input type="number" id="billSum" name="billSum"><br><br>
 
     <label for="partyNum">How many people are in the party?</label><br>
     <input type="number" id="partyNum" name="partyNum"><br><br>
-
-    <label for="soloBill">Would anyone like to pay for their own meal?</label><br>
-    <input type="number" id="soloBill" name="soloBill"><br><br>
-
-    <label for="">Is anyone planning to pay for someone else?</h2><label><br>
-    <input type="number" id="billSum" name="billSum"><br><br>
 
     <label for="tipPercent">What percentage tip would you like to leave?</label><br>
     <input type="number" id="tipPercent" name="tipPercent"><br><br>
@@ -29,7 +35,10 @@
     <div id="billDisplay">Each party member should pay this amount:</div><br>
 
     <label for="">Has each member paid?</label><br>
-    <input type="number" id="billSum" name="billSum"><br><br>
+    <input type="radio" id="yes" name="" value="Yes">
+    <label for="paid-yes">Yes</label>
+    <input type="radio" id="no" name="" value="No">
+    <label for="paid-no">No</label><br><br>
 
     <button type="button" id="Test" onclick="test()">Test Me</button>
 
