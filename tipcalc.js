@@ -7,6 +7,7 @@ var realTipPercent
 var soloBill = Array.new
 var soloBillTotal
 var soloLength
+var soloCount
 var soloNum
 var billDisplay = document.getElementById("billDisplay")
 
@@ -68,8 +69,32 @@ function checkTipPercent(tipPercent) {
         realTipPercent = tipPercent }
 }
 
-function tst() {
-    console.log("That worked!")
+function clearSoloCount() {
+    console.log("Cleared!")
+}
+
+function createSoloCount(soloCount) {
+    const newInput = document.createElement("div")
+    /*newInput.appendChild(newContent)*/
+
+    const currentDiv = document.getElementById("solo-holder");
+    document.body.insertBefore(newInput, currentDiv)
+}
+
+function addSoloCount() {
+    soloCount = document.getElementById("soloCount").value
+
+    clearSoloCount()
+    createSoloCount(soloCount)
+
+    /* This function should
+    clear the inputs created in the parent div
+    then create new ones
+    There should be a limit to the amount of
+    boxes it can make
+    I'm thinking about allowing users to use the arrows
+    on the input box
+    Should I use a button to confirm?*/
 }
 
 function test() {
