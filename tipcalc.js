@@ -68,6 +68,10 @@ function checkTipPercent(tipPercent) {
         realTipPercent = tipPercent }
 }
 
+function tst() {
+    console.log("That worked!")
+}
+
 function test() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
@@ -80,14 +84,16 @@ function test() {
 }
 
 function yesnoCheck() {
+
     if (document.getElementById('solo-no').checked) {
-        document.getElementById('solo-no-true').style.display = none;
+        document.getElementById('solo-no-true').style.display = "none";
     } else {
-        document.getElementById('solo-no-true').style.display = block;
+        document.getElementById('solo-no-true').style.display = "block";
     }
 }
 
 /* Does anyone want to pay for their own food?
 Is anyone paying for someone else?
 Has everyone paid?
+Should I have the program react to input being filled vs the button?
 */
