@@ -74,11 +74,22 @@ function clearSoloCount() {
 }
 
 function createSoloCount(soloCount) {
-    const newInput = document.createElement("div")
-    /*newInput.appendChild(newContent)*/
+    const soloBillInput = document.createElement("input")
+    soloBillInput.setAttribute("id", "solo-bill-1")
 
-    const currentDiv = document.getElementById("solo-holder");
-    document.body.insertBefore(newInput, currentDiv)
+    const soloUntaxBill = document.createTextNode("Enter untaxed bill here:");
+
+    const soloBillTax = document.createElement("input")
+    soloBillTax.setAttribute("id", "solo-bill-tax-1")
+
+    const soloTax = document.createTextNode("Enter tax here:");
+
+    const soloHolder = document.getElementById("solo-holder");
+
+    soloHolder.appendChild(soloUntaxBill)
+    soloHolder.appendChild(soloBillInput)
+    soloHolder.appendChild(soloTax)
+    soloHolder.appendChild(soloBillTax)
 }
 
 function addSoloCount() {
