@@ -70,41 +70,51 @@ function checkTipPercent(tipPercent) {
 }
 
 function clearSoloCount() {
-    console.log("Cleared!")
+    const soloHolder = document.getElementById("solo-holder")
+    const soloBillContainer = document.getElementById("solo-bill-container")
 
-    const soloBillContainer = document.getElementById("solo-bill-container-1");
-    soloBillContainer.remove();
+    if (soloHolder.firstChild) {
+        console.log("Cleared!")
+
+        /*const soloBillContainer = document.getElementById("solo-bill-container");
+        soloBillContainer.remove();*/
+
+        soloHolder.removeChild(soloBillContainer)
+    }
 }
 
 function createSoloCount(soloCount) {
-    const soloBillContainer = document.createElement("div")
-    soloBillContainer.setAttribute("id", "solo-bill-container-1")
+    for (let index = 0; index < soloCount; index++) {
+         
+        const soloBillContainer = document.createElement("div")
+        soloBillContainer.setAttribute("id", "solo-bill-container")
 
-    const soloBillInput = document.createElement("input")
-    soloBillInput.setAttribute("id", "solo-bill-1")
+        const soloBillInput = document.createElement("input")
+        soloBillInput.setAttribute("id", "solo-bill")
 
-    const soloUntaxBill = document.createTextNode("Enter untaxed bill here:");
+        const soloUntaxBill = document.createTextNode("Enter untaxed bill here:");
 
-    const soloBillTax = document.createElement("input")
-    soloBillTax.setAttribute("id", "solo-bill-tax-1")
+        const soloBillTax = document.createElement("input")
+        soloBillTax.setAttribute("id", "solo-bill-tax")
 
-    const soloTax = document.createTextNode("Enter tax here:");
+        const soloTax = document.createTextNode("Enter tax here:");
 
-    const soloHolder = document.getElementById("solo-holder");
+        const soloHolder = document.getElementById("solo-holder");
 
-    soloHolder.appendChild(soloBillContainer)
+        soloHolder.appendChild(soloBillContainer)
 
-    soloBillContainer.appendChild(soloUntaxBill)
-    soloBillContainer.appendChild(soloBillInput)
-    soloBillContainer.appendChild(soloTax)
-    soloBillContainer.appendChild(soloBillTax)
+        soloBillContainer.appendChild(soloUntaxBill)
+        soloBillContainer.appendChild(soloBillInput)
+        soloBillContainer.appendChild(soloTax)
+        soloBillContainer.appendChild(soloBillTax)
+    }
 }
 
 function addSoloCount() {
     soloCount = document.getElementById("soloCount").value
 
     createSoloCount(soloCount)
-    /*clearSoloCount()*/
+    clearSoloCount()
 
     /*document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
 
