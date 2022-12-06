@@ -71,9 +71,15 @@ function checkTipPercent(tipPercent) {
 
 function clearSoloCount() {
     console.log("Cleared!")
+
+    const soloBillContainer = document.getElementById("solo-bill-container-1");
+    soloBillContainer.remove();
 }
 
 function createSoloCount(soloCount) {
+    const soloBillContainer = document.createElement("div")
+    soloBillContainer.setAttribute("id", "solo-bill-container-1")
+
     const soloBillInput = document.createElement("input")
     soloBillInput.setAttribute("id", "solo-bill-1")
 
@@ -86,17 +92,21 @@ function createSoloCount(soloCount) {
 
     const soloHolder = document.getElementById("solo-holder");
 
-    soloHolder.appendChild(soloUntaxBill)
-    soloHolder.appendChild(soloBillInput)
-    soloHolder.appendChild(soloTax)
-    soloHolder.appendChild(soloBillTax)
+    soloHolder.appendChild(soloBillContainer)
+
+    soloBillContainer.appendChild(soloUntaxBill)
+    soloBillContainer.appendChild(soloBillInput)
+    soloBillContainer.appendChild(soloTax)
+    soloBillContainer.appendChild(soloBillTax)
 }
 
 function addSoloCount() {
     soloCount = document.getElementById("soloCount").value
 
-    clearSoloCount()
     createSoloCount(soloCount)
+    /*clearSoloCount()*/
+
+    /*document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
 
     /* This function should
     clear the inputs created in the parent div
