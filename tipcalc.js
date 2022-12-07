@@ -58,6 +58,8 @@ function displayTotal(partyShare, soloBill) {
     */
 }
 
+/* Ask if they are intentionally leaving a tip greater than 100% */
+
 function checkTipPercent(tipPercent) {
     if (tipPercent == 1) {
         realTipPercent = .01
@@ -69,17 +71,27 @@ function checkTipPercent(tipPercent) {
         realTipPercent = tipPercent }
 }
 
-function clearSoloCount() {
-    const soloHolder = document.getElementById("solo-holder")
-    const soloBillContainer = document.getElementById("solo-bill-container")
+function clearSoloCount(soloCount) {
+    let soloHolderChildren = document.getElementById("solo-holder").childElementCount
+    console.log(soloHolderChildren)
 
-    if (soloHolder.firstChild) {
-        console.log("Cleared!")
+    if (soloHolderChildren > soloCount) {
+        soloTarget = soloHolderChildren - soloCount
+        console.log(`There are ${soloHolderChildren} children`)
+        console.log(`There are ${soloCount} solo buyers`)
+        console.log(`${soloTarget} input should be removed`)
 
-        /*const soloBillContainer = document.getElementById("solo-bill-container");
-        soloBillContainer.remove();*/
+        for (let index = 0; index < soloTarget; index++) {
+            soloBillContainer = document.getElementById("solo-bill-container")
+            console.log("Deleted!")
+            soloBillContainer.remove()
+        }
+    } else if (soloCount > soloHolderChildren) {
+        soloTarget = soloCount - soloHolderChildren
 
-        soloHolder.removeChild(soloBillContainer)
+        console.log(`${soloTarget} input should be added`)
+
+        createSoloCount(soloTarget)
     }
 }
 
@@ -114,7 +126,7 @@ function addSoloCount() {
     soloCount = document.getElementById("soloCount").value
 
     createSoloCount(soloCount)
-    clearSoloCount()
+    clearSoloCount(soloCount)
 
     /*document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
 
@@ -132,6 +144,17 @@ function test() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
     tipPercent = document.getElementById("tipPercent").value
+
+    /* Fix the next line
+    It should only calculate the bill when billsum, partynum
+    and tippercent have values
+    Maybe add a text output to remind users to fill in the missing
+    inputs
+    */
+
+    if (billSum == NaN || 0 || null) {
+        console.log("Whoops!")
+    }
 
     checkTipPercent(tipPercent)
     calcPartyShare(billSum, partyNum, realTipPercent)
@@ -151,5 +174,13 @@ function yesnoCheck() {
 /* Does anyone want to pay for their own food?
 Is anyone paying for someone else?
 Has everyone paid?
+Add a check to see if the number of solo payers is greater than
+the total number of people in the party
 Should I have the program react to input being filled vs the button?
+Fix the solo payer check box 
+(It should say Yes and show the box when
+its checked; hidden by default)
+Rename the project to bill spliter
+Add a couple of divs to keep track
+of who paid who?
 */

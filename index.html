@@ -12,10 +12,10 @@
     <h1>This is a tip calculator</h1>
 
     <label for="billSum">How much was the bill without the tip?</label><br>
-    <input type="number" id="billSum" name="billSum"><br><br>
+    <input type="number" id="billSum" name="billSum" oninput="test()"><br><br>
 
     <label for="partyNum">How many people are in the party?</label><br>
-    <input type="number" id="partyNum" name="partyNum"><br><br>
+    <input type="number" id="partyNum" name="partyNum" oninput="test()"><br><br>
 
     <label for="soloBill">Would anyone like to pay for their own meal?</label><br>
     <input type="checkbox" id="solo-no" name="soloBill" value="No" onclick="yesnoCheck()">
@@ -37,7 +37,7 @@
     <label for="no">No</label><br><br>
 
     <label for="tipPercent">What percentage tip would you like to leave?</label><br>
-    <input type="number" id="tipPercent" name="tipPercent"><br><br>
+    <input type="number" id="tipPercent" name="tipPercent" oninput="test()"><br><br>
 
     <div id="billDisplay">Each party member should pay this amount:</div><br>
 
@@ -47,7 +47,7 @@
     <input type="radio" id="no" name="confirm-pay" value="No">
     <label for="paid-no">No</label><br><br>
 
-    <button type="button" id="Test" onclick="test()">Click Me</button>
+    <!-- <button type="button" id="Test" onclick="test()">Click Me</button> -->
 
     <script src="tipcalc.js"></script>
 </body>
