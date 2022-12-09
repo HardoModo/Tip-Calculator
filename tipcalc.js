@@ -73,7 +73,6 @@ function checkTipPercent(tipPercent) {
 
 function clearSoloCount(soloCount) {
     let soloHolderChildren = document.getElementById("solo-holder").childElementCount
-    console.log(soloHolderChildren)
 
     if (soloHolderChildren > soloCount) {
         soloTarget = soloHolderChildren - soloCount
@@ -96,8 +95,8 @@ function clearSoloCount(soloCount) {
 }
 
 function createSoloCount(soloCount) {
-    for (let index = 0; index < soloCount; index++) {
-         
+
+    for (let index = 0; index < soloCount; index++) {         
         const soloBillContainer = document.createElement("div")
         soloBillContainer.setAttribute("id", "solo-bill-container")
 
@@ -123,6 +122,7 @@ function createSoloCount(soloCount) {
 }
 
 function addSoloCount() {
+
     soloCount = document.getElementById("soloCount").value
 
     createSoloCount(soloCount)
@@ -150,11 +150,25 @@ function test() {
     and tippercent have values
     Maybe add a text output to remind users to fill in the missing
     inputs
+    Maybe a case switch
     */
 
-    if (billSum == NaN || 0 || null) {
-        console.log("Whoops!")
+    /*if (partyNum == "" && billSum == "" && tipPercent == "") {
+        billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage")
+    } else if (partyNum == "" && billSum == "") {
+        billDisplay.innerHTML = ("Please enter a party size and bill")
+    } else if (partyNum == "" && tipPercent == "") {
+        billDisplay.innerHTML = ("Please enter a party size and tip percentage")
+    } else if (billSum == "" && tipPercent == "") {
+        billDisplay.innerHTML = ("Please enter your bill and tip percentage")
+    } else if (billSum == "") {
+        billDisplay.innerHTML = ("Please enter your bill")
+    } else if (partyNum == "") {
+        billDisplay.innerHTML = ("Please enter your tip percentage")
+    } else {
+        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     }
+    */
 
     checkTipPercent(tipPercent)
     calcPartyShare(billSum, partyNum, realTipPercent)
