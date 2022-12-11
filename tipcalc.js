@@ -11,6 +11,13 @@ var soloCount
 var soloNum
 var billDisplay = document.getElementById("billDisplay")
 
+document.getElementById('solo-no-true').style.display = "none"
+
+/*
+Look up more efficent ways to have the solo bill payer
+boxes start as hidden by default 
+*/
+
 function fillSoloArray(soloBill) {
     /* This function will fill the soloBill function with the guests that want to pay for their checks seperately */
 }
@@ -44,6 +51,10 @@ function calcSoloBillTip(soloBill) {
     /* This function will calculate the amount each solo guest will pay.
     It will update the solo bill array */
     soloBill = soloBill * tipPercent
+
+    /* Ask users if they would like to enter a cash
+    value for tip or tip over 100%
+    */
     
 }
 
@@ -76,13 +87,16 @@ function clearSoloCount(soloCount) {
 
     if (soloHolderChildren > soloCount) {
         soloTarget = soloHolderChildren - soloCount
+        /*
+        These logs were used to help me track the creation and deletion of
+        solo bill payer inputs
+
         console.log(`There are ${soloHolderChildren} children`)
         console.log(`There are ${soloCount} solo buyers`)
-        console.log(`${soloTarget} input should be removed`)
+        console.log(`${soloTarget} input should be removed`)*/
 
         for (let index = 0; index < soloTarget; index++) {
             soloBillContainer = document.getElementById("solo-bill-container")
-            console.log("Deleted!")
             soloBillContainer.remove()
         }
     } else if (soloCount > soloHolderChildren) {
@@ -108,6 +122,9 @@ function createSoloCount(soloCount) {
         const soloBillTax = document.createElement("input")
         soloBillTax.setAttribute("id", "solo-bill-tax")
 
+        const soloBillDisplay = document.createElement("div")
+        soloBillDisplay.setAttribute("id", "solo-bill-display")
+
         const soloTax = document.createTextNode("Enter tax here:");
 
         const soloHolder = document.getElementById("solo-holder");
@@ -118,6 +135,7 @@ function createSoloCount(soloCount) {
         soloBillContainer.appendChild(soloBillInput)
         soloBillContainer.appendChild(soloTax)
         soloBillContainer.appendChild(soloBillTax)
+        soloBillContainer.appendChild(soloBillDisplay)
     }
 }
 
@@ -127,6 +145,8 @@ function addSoloCount() {
 
     createSoloCount(soloCount)
     clearSoloCount(soloCount)
+
+    /* Look up adding DOM events to dynamic elements for the solo bill calculator */
 
     /*document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
 
@@ -140,20 +160,9 @@ function addSoloCount() {
     Should I use a button to confirm?*/
 }
 
-function test() {
-    billSum = document.getElementById("billSum").value
-    partyNum = document.getElementById("partyNum").value
-    tipPercent = document.getElementById("tipPercent").value
+function checkInput(billSum, partyNum, tipPercent) {
 
-    /* Fix the next line
-    It should only calculate the bill when billsum, partynum
-    and tippercent have values
-    Maybe add a text output to remind users to fill in the missing
-    inputs
-    Maybe a case switch
-    */
-
-    /*if (partyNum == "" && billSum == "" && tipPercent == "") {
+        if (partyNum == "" && billSum == "" && tipPercent == "") {
         billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage")
     } else if (partyNum == "" && billSum == "") {
         billDisplay.innerHTML = ("Please enter a party size and bill")
@@ -164,24 +173,32 @@ function test() {
     } else if (billSum == "") {
         billDisplay.innerHTML = ("Please enter your bill")
     } else if (partyNum == "") {
-        billDisplay.innerHTML = ("Please enter your tip percentage")
+        billDisplay.innerHTML = ("Please enter your party size")
+    } else if (tipPercent == "") {
+        calcPartyShare(billSum, partyNum, 0)    
+        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     } else {
+        checkTipPercent(tipPercent)
+        calcPartyShare(billSum, partyNum, realTipPercent)    
         billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     }
-    */
+    
+}
 
-    checkTipPercent(tipPercent)
-    calcPartyShare(billSum, partyNum, realTipPercent)
+function test() {
+    billSum = document.getElementById("billSum").value
+    partyNum = document.getElementById("partyNum").value
+    tipPercent = document.getElementById("tipPercent").value
 
-    billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
+    checkInput(billSum, partyNum, tipPercent)
 }
 
 function yesnoCheck() {
 
     if (document.getElementById('solo-no').checked) {
-        document.getElementById('solo-no-true').style.display = "none";
-    } else {
         document.getElementById('solo-no-true').style.display = "block";
+    } else {
+        document.getElementById('solo-no-true').style.display = "none";
     }
 }
 
