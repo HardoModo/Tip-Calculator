@@ -4,69 +4,47 @@ var billTotal
 var partyShare
 var tipPercent
 var realTipPercent
-var soloBill = Array.new
+var soloBillArray = Array.new
 var soloBillTotal
 var soloLength
 var soloCount
 var soloNum
 var billDisplay = document.getElementById("billDisplay")
+var NewBillSum
 
 document.getElementById('solo-no-true').style.display = "none"
 
-/*
-Look up more efficent ways to have the solo bill payer
-boxes start as hidden by default 
-*/
-
-function fillSoloArray(soloBill) {
-    /* This function will fill the soloBill function with the guests that want to pay for their checks seperately */
-}
-
-function calcSoloBillTotal(soloBill) {
+function calcSoloBillTotal() {
     /* solo bill is going to be an array filled with the name and bill of people that want to pay for their own stuff.
     solo bill total is going to be the sum of all the solo bills which will be subtracted from the bill the rest of
     the group will pay. Tips have not been added yet.*/
+
+    /* When this function is triggered it should add the input of each solo bill input.
+    This function currently triggers too early. It should wait until this is an input in either
+    partyNum or soloNum*/
+
     soloLength = soloBill.length
     soloBillTotal = soloBill /* Fix me */
-    return soloBillTotal
 }
 
 function calcPartyNum(partyNum, soloNum) {
+    /* This function should trigger when partyNum or soloNum changes.
+    It currently only triggers when partyNum changes*/
+
+    if (soloNum >= partyNum) {
+        console.log("You have too many solo payers. Please double check.")
+    } else {
     partyNum = partyNum - soloNum
-    return partyNum
+    }
 }
 
 function calcBillSum(billSum, soloBillTotal) {
-    billSum = billSum - soloBillTotal
-    return billSum
+    NewBillSum = billSum - soloBillTotal
 }
 
 function calcPartyShare(billSum, partyNum, tipPercent) {
     billTotal = billSum * (1 + tipPercent)
     partyShare = billTotal / partyNum
-    return partyShare
-}
-
-function calcSoloBillTip(soloBill) {
-    /* This function will calculate the amount each solo guest will pay.
-    It will update the solo bill array */
-    soloBill = soloBill * tipPercent
-
-    /* Ask users if they would like to enter a cash
-    value for tip or tip over 100%
-    */
-    
-}
-
-function displayTotal(partyShare, soloBill) {
-    /* This function will display the amount everyone has to pay
-    Including solo bill payers */
-    console.log(`Everyone that is paying for themselves should pay this amount: ${partyShare}`)
-    console.log(`Solo payer A should pay this amount: ${soloBill}`)
-    console.log(`Solo payer B should pay... `)
-    /* There should possibly be a loop here based off the amount of solo bill payers that displays
-    the amount each solo bill payer should pay 
-    */
 }
 
 /* Ask if they are intentionally leaving a tip greater than 100% */
@@ -87,8 +65,8 @@ function clearSoloCount(soloCount) {
 
     if (soloHolderChildren > soloCount) {
         soloTarget = soloHolderChildren - soloCount
-        /*
-        These logs were used to help me track the creation and deletion of
+
+        /* These logs were used to help me track the creation and deletion of
         solo bill payer inputs
 
         console.log(`There are ${soloHolderChildren} children`)
@@ -148,7 +126,7 @@ function addSoloCount() {
 
     /* Look up adding DOM events to dynamic elements for the solo bill calculator */
 
-    /*document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
+    /* document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
 
     /* This function should
     clear the inputs created in the parent div
@@ -189,8 +167,33 @@ function test() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
     tipPercent = document.getElementById("tipPercent").value
+    soloNum = document.getElementById("soloCount").value
 
-    checkInput(billSum, partyNum, tipPercent)
+    soloBillTotal = 1
+
+    calcPartyNum(partyNum, soloNum)
+    calcBillSum(billSum, soloBillTotal)
+    checkInput(NewBillSum, partyNum, tipPercent)
+}
+
+function test2() {
+    const soloBillInput = document.getElementById("solo-bill")
+    /* const soloBillInputValue = soloBillInput.value*/
+    var soloBillTax = document.getElementById("solo-bill-tax")
+    var soloBillDisplay = document.getElementById("solo-bill-display")
+    const soloBillPayAmount = soloBillInput.value * soloBillTax.value
+
+    /* checkTipPercent(soloBillTax)*/
+    /* The input boxes created by my solo input function accepts inputs
+    that aren't numbers. I need to either find a way to add input type to those boxes or add
+    a check that'll account for values that aren't numbers 
+    */
+
+    if (soloBillTax.value == "" || soloBillTax.value == ".") {
+        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput.value}`
+    } else {
+        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount}`
+    }
 }
 
 function yesnoCheck() {
@@ -207,11 +210,7 @@ Is anyone paying for someone else?
 Has everyone paid?
 Add a check to see if the number of solo payers is greater than
 the total number of people in the party
+Add a check to see if total solo bill is greater than the total bill
 Should I have the program react to input being filled vs the button?
-Fix the solo payer check box 
-(It should say Yes and show the box when
-its checked; hidden by default)
-Rename the project to bill spliter
-Add a couple of divs to keep track
-of who paid who?
+Add a couple of divs to keep track of who paid who?
 */
