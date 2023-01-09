@@ -27,7 +27,7 @@ function calcSoloBillTotal() {
     soloBillTotal = soloBill /* Fix me */
 }
 
-function calcPartyNum(partyNum, soloNum) {
+function calcPartyNum() {
     /* This function should trigger when partyNum or soloNum changes.
     It currently only triggers when partyNum changes*/
 
@@ -42,14 +42,16 @@ function calcBillSum(billSum, soloBillTotal) {
     NewBillSum = billSum - soloBillTotal
 }
 
-function calcPartyShare(billSum, partyNum, tipPercent) {
-    billTotal = billSum * (1 + tipPercent)
+function calcPartyShare() {
+    billTotal = (billSum * (1 + realTipPercent)) - soloBillTotal
     partyShare = billTotal / partyNum
 }
 
-/* Ask if they are intentionally leaving a tip greater than 100% */
+/* Ask if they are intentionally leaving a tip greater than 100% 
+Change function so I can change and return input variable
+*/
 
-function checkTipPercent(tipPercent) {
+function checkTipPercent() {
     if (tipPercent == 1) {
         realTipPercent = .01
     } else if (tipPercent == 0) {
@@ -140,7 +142,7 @@ function addSoloCount() {
 
 function checkInput(billSum, partyNum, tipPercent) {
 
-        if (partyNum == "" && billSum == "" && tipPercent == "") {
+    if (partyNum == "" && billSum == "" && tipPercent == "") {
         billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage")
     } else if (partyNum == "" && billSum == "") {
         billDisplay.innerHTML = ("Please enter a party size and bill")
@@ -153,11 +155,12 @@ function checkInput(billSum, partyNum, tipPercent) {
     } else if (partyNum == "") {
         billDisplay.innerHTML = ("Please enter your party size")
     } else if (tipPercent == "") {
-        calcPartyShare(billSum, partyNum, 0)    
+        realTipPercent = 0
+        calcPartyShare()    
         billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     } else {
-        checkTipPercent(tipPercent)
-        calcPartyShare(billSum, partyNum, realTipPercent)    
+        checkTipPercent()
+        calcPartyShare()    
         billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     }
     
@@ -169,9 +172,9 @@ function test() {
     tipPercent = document.getElementById("tipPercent").value
     soloNum = document.getElementById("soloCount").value
 
-    soloBillTotal = 1
+    soloBillTotal = 0
 
-    calcPartyNum(partyNum, soloNum)
+    calcPartyNum()
     calcBillSum(billSum, soloBillTotal)
     checkInput(NewBillSum, partyNum, tipPercent)
 }
