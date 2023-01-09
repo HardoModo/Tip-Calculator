@@ -13,6 +13,8 @@ var billDisplay = document.getElementById("billDisplay")
 var NewBillSum
 var soloBillInput
 var soloBillTax
+var soloBillDisplay
+var soloBillPayAmount
 
 
 document.getElementById('solo-no-true').style.display = "none"
@@ -173,6 +175,15 @@ function checkInput(billSum, partyNum, tipPercent) {
     
 }
 
+function checkSoloInput() {
+    if (soloBillTax == "") {
+        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
+    } else {
+        soloBillPayAmount = soloBillInput * 2
+        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount}`
+    }
+}
+
 function test() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
@@ -209,9 +220,9 @@ function test2() {
 function test3() {
     soloBillInput = document.getElementById("solo-bill").value
     soloBillTax = document.getElementById("solo-bill-tax").value
+    soloBillDisplay = document.getElementById("solo-bill-display")
 
-    console.log(soloBillInput)
-    console.log(soloBillTax)
+    checkSoloInput()
 }
 
 function yesnoCheck() {
