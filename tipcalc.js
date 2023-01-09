@@ -11,6 +11,9 @@ var soloCount
 var soloNum
 var billDisplay = document.getElementById("billDisplay")
 var NewBillSum
+var soloBillInput
+var soloBillTax
+
 
 document.getElementById('solo-no-true').style.display = "none"
 
@@ -140,6 +143,10 @@ function addSoloCount() {
     Should I use a button to confirm?*/
 }
 
+function cloneSoloInput() {
+    console.log("That worked!")
+}
+
 function checkInput(billSum, partyNum, tipPercent) {
 
     if (partyNum == "" && billSum == "" && tipPercent == "") {
@@ -197,6 +204,14 @@ function test2() {
     } else {
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount}`
     }
+}
+
+function test3() {
+    soloBillInput = document.getElementById("solo-bill").value
+    soloBillTax = document.getElementById("solo-bill-tax").value
+
+    console.log(soloBillInput)
+    console.log(soloBillTax)
 }
 
 function yesnoCheck() {
