@@ -15,7 +15,9 @@ var soloBillInput
 var soloBillTax
 var soloBillDisplay
 var soloBillPayAmount
+var realSoloBillTax
 
+soloBillTotal = 0
 
 document.getElementById('solo-no-true').style.display = "none"
 
@@ -52,6 +54,13 @@ function calcPartyShare() {
     partyShare = billTotal / partyNum
 }
 
+function calcSoloBill() {
+    console.log(soloBillInput)
+    console.log(realSoloBillTax)
+    console.log(soloBillPayAmount)
+    soloBillPayAmount = (soloBillInput * (1 + realSoloBillTax))
+}
+
 /* Ask if they are intentionally leaving a tip greater than 100% 
 Change function so I can change and return input variable
 */
@@ -65,6 +74,17 @@ function checkTipPercent() {
         realTipPercent = tipPercent / 100
     } else {
         realTipPercent = tipPercent }
+}
+
+function checkSoloTipPercent() {
+    if (soloBillTax == 1) {
+        realSoloBillTax = .01
+    } else if (soloBillTax == 0) {
+        realSoloBillTax = 0
+    } else if (soloBillTax > 1) {
+        realSoloBillTax = soloBillTax / 100
+    } else {
+        realSoloBillTax = soloBillTax }
 }
 
 function clearSoloCount(soloCount) {
@@ -176,11 +196,14 @@ function checkInput(billSum, partyNum, tipPercent) {
 }
 
 function checkSoloInput() {
-    if (soloBillTax == "") {
+    if (soloBillInput = "" && soloBillTax == "") {
+        soloBillDisplay.innerHTML = `Please enter an amount`
+    } else if (soloBillTax == "") {
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
     } else {
-        soloBillPayAmount = soloBillInput * 2
-        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount}`
+        checkSoloTipPercent()
+        calcSoloBill()
+        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
     }
 }
 
@@ -190,31 +213,9 @@ function test() {
     tipPercent = document.getElementById("tipPercent").value
     soloNum = document.getElementById("soloCount").value
 
-    soloBillTotal = 0
-
     calcPartyNum()
     calcBillSum(billSum, soloBillTotal)
     checkInput(NewBillSum, partyNum, tipPercent)
-}
-
-function test2() {
-    const soloBillInput = document.getElementById("solo-bill")
-    /* const soloBillInputValue = soloBillInput.value*/
-    var soloBillTax = document.getElementById("solo-bill-tax")
-    var soloBillDisplay = document.getElementById("solo-bill-display")
-    const soloBillPayAmount = soloBillInput.value * soloBillTax.value
-
-    /* checkTipPercent(soloBillTax)*/
-    /* The input boxes created by my solo input function accepts inputs
-    that aren't numbers. I need to either find a way to add input type to those boxes or add
-    a check that'll account for values that aren't numbers 
-    */
-
-    if (soloBillTax.value == "" || soloBillTax.value == ".") {
-        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput.value}`
-    } else {
-        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount}`
-    }
 }
 
 function test3() {
