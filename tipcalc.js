@@ -47,12 +47,12 @@ function calcPartyNum() {
     }
 }
 
-function calcBillSum(billSum, soloBillTotal) {
-    NewBillSum = billSum - soloBillTotal
+function calcBillSum(billSum, soloBillInput) {
+    NewBillSum = billSum - soloBillInput
 }
 
 function calcPartyShare() {
-    billTotal = (billSum * (1 + realTipPercent)) - soloBillTotal
+    billTotal = (billSum * (1 + realTipPercent)) - soloBillInput
     partyShare = billTotal / partyNum
 }
 
@@ -187,6 +187,8 @@ function gatherInfo() {
     tipPercent = document.getElementById("tipPercent").value
     soloNum = document.getElementById("soloCount").value
 
+    soloCount = document.getElementById("soloCount").value
+
     soloBillInput = document.getElementById("solo-bill").value
     soloBillTax = document.getElementById("solo-bill-tax").value
     soloBillDisplay = document.getElementById("solo-bill-display")
@@ -196,8 +198,15 @@ function test() {
     gatherInfo()
 
     calcPartyNum()
+
+    /*cloneSoloInput()
+    This function is triggering a null type error
+    for solo bill input
+    Fix me later
+    */
+
     checkSoloInput(soloBillInput, soloBillTax)
-    calcBillSum(billSum, soloBillTotal)
+    calcBillSum(billSum, soloBillInput)
     checkInput(NewBillSum, partyNum, tipPercent)
 }
 
