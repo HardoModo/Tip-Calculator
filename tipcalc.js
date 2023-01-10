@@ -237,7 +237,6 @@ function test3() {
 }
 
 function yesnoCheck() {
-
     if (document.getElementById('solo-no').checked) {
         document.getElementById('solo-no-true').style.display = "block";
     } else {
