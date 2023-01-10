@@ -11,6 +11,8 @@ var soloCount
 var soloNum
 var billDisplay = document.getElementById("billDisplay")
 var NewBillSum
+var soloBillHolder = document.getElementById("solo-holder")
+var soloBillContainer = document.getElementById("solo-bill-container")
 var soloBillInput
 var soloBillTax
 var soloBillDisplay
@@ -167,6 +169,11 @@ function addSoloCount() {
 
 function cloneSoloInput() {
     console.log("That worked!")
+    soloCount = document.getElementById("soloCount").value
+
+    var clonedDiv = soloBillContainer.cloneNode(true)
+
+    soloBillHolder.appendChild(clonedDiv)
 }
 
 function checkInput(billSum, partyNum, tipPercent) {
@@ -195,15 +202,18 @@ function checkInput(billSum, partyNum, tipPercent) {
     
 }
 
-function checkSoloInput() {
-    if (soloBillInput = "" && soloBillTax == "") {
-        soloBillDisplay.innerHTML = `Please enter an amount`
+function checkSoloInput(soloBillInput, soloBillTax) {
+    if (soloBillInput == "") {
+        soloBillDisplay.innerHTML = `Please enter an amount.`
+        console.log("Reached point A.")
     } else if (soloBillTax == "") {
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
+        console.log("Reached point B.")
     } else {
         checkSoloTipPercent()
         calcSoloBill()
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
+        console.log("Reached point C.")
     }
 }
 
@@ -223,7 +233,7 @@ function test3() {
     soloBillTax = document.getElementById("solo-bill-tax").value
     soloBillDisplay = document.getElementById("solo-bill-display")
 
-    checkSoloInput()
+    checkSoloInput(soloBillInput, soloBillTax)
 }
 
 function yesnoCheck() {
