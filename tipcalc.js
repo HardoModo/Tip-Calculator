@@ -95,13 +95,6 @@ function clearSoloCount(soloCount) {
     if (soloHolderChildren > soloCount) {
         soloTarget = soloHolderChildren - soloCount
 
-        /* These logs were used to help me track the creation and deletion of
-        solo bill payer inputs
-
-        console.log(`There are ${soloHolderChildren} children`)
-        console.log(`There are ${soloCount} solo buyers`)
-        console.log(`${soloTarget} input should be removed`)*/
-
         for (let index = 0; index < soloTarget; index++) {
             soloBillContainer = document.getElementById("solo-bill-container")
             soloBillContainer.remove()
@@ -116,16 +109,22 @@ function clearSoloCount(soloCount) {
 }
 
 function createSoloCount(soloCount) {
+    
     for (let index = 0; index < soloCount; index++) {         
         
         var clonedDiv = soloBillContainer.cloneNode(true)
 
         soloBillHolder.appendChild(clonedDiv)
-    }
+    }   
 }
 
 function cloneSoloInput() {
     soloCount = document.getElementById("soloCount").value
+
+    if (document.getElementById('solo-no').checked && soloCount == "") {
+        soloCount = 1
+        console.log("Test")
+    }
 
     createSoloCount(soloCount)
     clearSoloCount(soloCount)
@@ -173,35 +172,33 @@ function checkInput(billSum, partyNum, tipPercent) {
 function checkSoloInput(soloBillInput, soloBillTax) {
     if (soloBillInput == "") {
         soloBillDisplay.innerHTML = `Please enter an amount.`
-        console.log("Reached point A.")
     } else if (soloBillTax == "") {
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
-        console.log("Reached point B.")
     } else {
         checkSoloTipPercent()
         calcSoloBill()
         soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
-        console.log("Reached point C.")
     }
 }
 
-function test() {
+function gatherInfo() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
     tipPercent = document.getElementById("tipPercent").value
     soloNum = document.getElementById("soloCount").value
 
-    calcPartyNum()
-    calcBillSum(billSum, soloBillTotal)
-    checkInput(NewBillSum, partyNum, tipPercent)
-}
-
-function test3() {
     soloBillInput = document.getElementById("solo-bill").value
     soloBillTax = document.getElementById("solo-bill-tax").value
     soloBillDisplay = document.getElementById("solo-bill-display")
+}
 
+function test() {
+    gatherInfo()
+
+    calcPartyNum()
     checkSoloInput(soloBillInput, soloBillTax)
+    calcBillSum(billSum, soloBillTotal)
+    checkInput(NewBillSum, partyNum, tipPercent)
 }
 
 function yesnoCheck() {
