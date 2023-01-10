@@ -116,38 +116,15 @@ function clearSoloCount(soloCount) {
 }
 
 function createSoloCount(soloCount) {
-
     for (let index = 0; index < soloCount; index++) {         
-        const soloBillContainer = document.createElement("div")
-        soloBillContainer.setAttribute("id", "solo-bill-container")
+        
+        var clonedDiv = soloBillContainer.cloneNode(true)
 
-        const soloBillInput = document.createElement("input")
-        soloBillInput.setAttribute("id", "solo-bill")
-
-        const soloUntaxBill = document.createTextNode("Enter untaxed bill here:");
-
-        const soloBillTax = document.createElement("input")
-        soloBillTax.setAttribute("id", "solo-bill-tax")
-
-        const soloBillDisplay = document.createElement("div")
-        soloBillDisplay.setAttribute("id", "solo-bill-display")
-
-        const soloTax = document.createTextNode("Enter tax here:");
-
-        const soloHolder = document.getElementById("solo-holder");
-
-        soloHolder.appendChild(soloBillContainer)
-
-        soloBillContainer.appendChild(soloUntaxBill)
-        soloBillContainer.appendChild(soloBillInput)
-        soloBillContainer.appendChild(soloTax)
-        soloBillContainer.appendChild(soloBillTax)
-        soloBillContainer.appendChild(soloBillDisplay)
+        soloBillHolder.appendChild(clonedDiv)
     }
 }
 
-function addSoloCount() {
-
+function cloneSoloInput() {
     soloCount = document.getElementById("soloCount").value
 
     createSoloCount(soloCount)
@@ -165,15 +142,6 @@ function addSoloCount() {
     I'm thinking about allowing users to use the arrows
     on the input box
     Should I use a button to confirm?*/
-}
-
-function cloneSoloInput() {
-    console.log("That worked!")
-    soloCount = document.getElementById("soloCount").value
-
-    var clonedDiv = soloBillContainer.cloneNode(true)
-
-    soloBillHolder.appendChild(clonedDiv)
 }
 
 function checkInput(billSum, partyNum, tipPercent) {
