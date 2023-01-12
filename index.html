@@ -23,7 +23,7 @@
 
     <div id="solo-no-true">
         <label for="soloCount">How many people would like to pay for themselves?</label><br>
-        <input type="number" id="soloCount" name="soloCount" oninput="test()"><br><br>
+        <input type="number" id="soloCount" name="soloCount" oninput="cloneSoloInput()"><br><br>
 
         <div id="solo-holder">
             <div id="solo-bill-container">
@@ -38,7 +38,7 @@
         <br>
     </div>
 
-    <label for="">Is anyone planning to pay for someone else?</h2><label><br>
+    <label for="cover-pay">Is anyone planning to pay for someone else?<label><br>
     <input type="radio" id="yes" name="cover-pay" value="Yes">
     <label for="yes">Yes</label>
     <input type="radio" id="no" name="cover-pay" value="No">
@@ -55,7 +55,7 @@
     <input type="radio" id="no" name="confirm-pay" value="No">
     <label for="paid-no">No</label><br><br>
 
-    <!-- <button type="button" id="Test" onclick="test()">Click Me</button> -->
+    <button type="button" id="Test" onclick="querySelectorTest()">Function Testing Button</button>
 
     <script src="tipcalc.js"></script>
 </body>
