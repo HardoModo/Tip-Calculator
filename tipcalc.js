@@ -4,7 +4,8 @@ var billTotal
 var partyShare
 var tipPercent
 var realTipPercent
-var soloBillArray = Array.new
+var soloBillInputArray = Array.new
+var soloBillTaxArray = Array.new
 var soloBillTotal
 var soloLength
 var soloCount
@@ -160,10 +161,9 @@ function checkInput(billSum, partyNum, tipPercent) {
         billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}.`
     } else {
         checkTipPercent()
-        calcPartyShare()    
+        calcPartyShare()
         billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}.`
-    }
-    
+    }   
 }
 
 function checkSoloInput(soloBillInput, soloBillTax) {
@@ -179,43 +179,31 @@ function checkSoloInput(soloBillInput, soloBillTax) {
 }
 
 function soloBillChecker() {
-    element = document.getElementById("solo-bill");
-    if (element != null) {
-        querySelectorTest()
-
-        for (let index = 0; index < soloBillArray.length; index++) {
-            element = document.getElementById("solo-bill")
-            soloBillInput = element.value;
+    soloBillInputArray = document.querySelectorAll("#solo-bill")
+    
+    soloBillInputArray.forEach((element) => {
+        if (element != null) {
+            soloBillInput = element.value
+            console.log("This is your solo bill input:")
             console.log(soloBillInput)
+        } else {
+            soloBillInput = null;
         }
-    } else {
-        soloBillInput = null;
-    }
-
-    /*
-    Check etch and sketch code for solution
-    to looping functions through html elements problem
-    */
-}
-
-function querySelectorTest() {
-    soloBillArray = document.querySelectorAll("#solo-bill")
-    console.log("This is solo bill array content:")
-
-    soloBillArray.forEach()
-
-    /* You'll figure it out, champ
-    You've got this
-    */
+    })
 }
 
 function soloTaxChecker() {
-    element = document.getElementById("solo-bill-tax");
-    if (element != null) {
-        soloBillTax = element.value;
-    } else {
-        soloBillTax = null;
-    }
+    soloBillTaxArray = document.querySelectorAll("#solo-bill-tax")
+
+    soloBillTaxArray.forEach((element) => {
+        if (element != null) {
+            soloBillTax = element.value
+            console.log("This is your solo tax input:")
+            console.log(soloBillTax)
+        } else {
+            soloBillTax = null;
+        }
+    })
 }
 
 function gatherInfo() {
