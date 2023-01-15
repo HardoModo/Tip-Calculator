@@ -27,22 +27,13 @@ soloBillTotal = 0
 document.getElementById('solo-no-true').style.display = "none"
 
 function calcSoloBillTotal() {
+    soloBillTotal = 0
 
-    console.log("Second Array Output:")
-    console.log(typeof soloBillInputArray[0].value)
+    soloBillInputArray.forEach((element) => {
+        soloBillTotal = soloBillTotal + Number(element.value)
+    })
 
-    if (typeof Number(soloBillInputArray[0].value) === 'number') {
-        console.log("Its a number!")
-    } else if (typeof soloBillInputArray[0].value === 'object') {
-        console.log("That isn't a number!")
-        soloBillTotal = 0
-    } else {
-        console.log("3")
-        soloBillTotal = soloBillInputArray.reduce(
-            (accumulator, currentValue) => accumulator + currentValue,
-            initialValue
-        )
-    }
+    console.log("This is solo bill total:")
     console.log(soloBillTotal)
 }
 
@@ -158,11 +149,11 @@ function checkInput(billSum, partyNum, tipPercent) {
     } else if (tipPercent == "") {
         realTipPercent = 0
         calcPartyShare()    
-        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}.`
+        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     } else {
         checkTipPercent()
         calcPartyShare()
-        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}.`
+        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
     }   
 }
 
@@ -184,10 +175,7 @@ function checkSoloInput(soloBillInput, soloBillTax) {
 
 function soloBillChecker() {
     soloBillInputArray = document.querySelectorAll("#solo-bill")
-
-    console.log("First Array Output:")
-    console.log(soloBillInputArray)
-    
+ 
     soloBillInputArray.forEach((element) => {
         if (element != null) {
             soloBillInput = element.value
