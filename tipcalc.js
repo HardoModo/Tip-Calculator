@@ -16,30 +16,37 @@ var soloBillHolder = document.getElementById("solo-holder")
 var soloBillContainer = document.getElementById("solo-bill-container")
 var soloBillInput
 var soloBillTax
-var soloBillDisplay = document.getElementById("solo-bill-display")
+var soloBillDisplay
+var soloBillDisplayArray = Array.new
 var soloBillPayAmount
 var realSoloBillTax
+const initialValue = 0
 
 soloBillTotal = 0
 
 document.getElementById('solo-no-true').style.display = "none"
 
 function calcSoloBillTotal() {
-    /* solo bill is going to be an array filled with the name and bill of people that want to pay for their own stuff.
-    solo bill total is going to be the sum of all the solo bills which will be subtracted from the bill the rest of
-    the group will pay. Tips have not been added yet.*/
 
-    /* When this function is triggered it should add the input of each solo bill input.
-    This function currently triggers too early. It should wait until this is an input in either
-    partyNum or soloNum*/
+    console.log("Second Array Output:")
+    console.log(typeof soloBillInputArray[0].value)
 
-    soloLength = soloBill.length
-    soloBillTotal = soloBill /* Fix me */
+    if (typeof Number(soloBillInputArray[0].value) === 'number') {
+        console.log("Its a number!")
+    } else if (typeof soloBillInputArray[0].value === 'object') {
+        console.log("That isn't a number!")
+        soloBillTotal = 0
+    } else {
+        console.log("3")
+        soloBillTotal = soloBillInputArray.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            initialValue
+        )
+    }
+    console.log(soloBillTotal)
 }
 
 function calcPartyNum() {
-    /* This function should trigger when partyNum or soloNum changes.
-    It currently only triggers when partyNum changes*/
 
     if (soloNum >= partyNum) {
         console.log("You have too many solo payers. Please double check.")
@@ -48,12 +55,12 @@ function calcPartyNum() {
     }
 }
 
-function calcBillSum(billSum, soloBillInput) {
-    NewBillSum = billSum - soloBillInput
+function calcBillSum(billSum, soloBillTotal) {
+    NewBillSum = billSum - soloBillTotal
 }
 
 function calcPartyShare() {
-    billTotal = (billSum * (1 + realTipPercent)) - soloBillInput
+    billTotal = (billSum * (1 + realTipPercent)) - soloBillTotal
     partyShare = billTotal / partyNum
 }
 
@@ -124,13 +131,6 @@ function cloneSoloInput() {
     createSoloCount(soloCount)
     clearSoloCount(soloCount)
 
-    /* Tried adding test function here to update the bill size as solo input is changed
-    but that caused an error */
-
-    /* Look up adding DOM events to dynamic elements for the solo bill calculator */
-
-    /* document.getElementById("solo-bill-1").addEventListener("input", console.log("Bill received."))*/
-
     /* This function should
     clear the inputs created in the parent div
     then create new ones
@@ -138,7 +138,7 @@ function cloneSoloInput() {
     boxes it can make
     I'm thinking about allowing users to use the arrows
     on the input box
-    Should I use a button to confirm?*/
+    */
 }
 
 function checkInput(billSum, partyNum, tipPercent) {
@@ -167,19 +167,26 @@ function checkInput(billSum, partyNum, tipPercent) {
 }
 
 function checkSoloInput(soloBillInput, soloBillTax) {
-    if (soloBillInput == "") {
-        soloBillDisplay.innerHTML = `Please enter an amount.`
-    } else if (soloBillTax == "") {
-        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
-    } else {
-        checkSoloTipPercent()
-        calcSoloBill()
-        soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
-    }
+    soloBillDisplayArray = document.querySelectorAll("#solo-bill-display")
+
+    soloBillDisplayArray.forEach((element) => {
+        if (soloBillInput == "") {
+            element.innerHTML = `Please enter an amount.`
+        } else if (soloBillTax == "") {
+            element.innerHTML = `You should pay this amount: ${soloBillInput}`
+        } else {
+            checkSoloTipPercent()
+            calcSoloBill()
+            element.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
+        }
+    })
 }
 
 function soloBillChecker() {
     soloBillInputArray = document.querySelectorAll("#solo-bill")
+
+    console.log("First Array Output:")
+    console.log(soloBillInputArray)
     
     soloBillInputArray.forEach((element) => {
         if (element != null) {
@@ -190,6 +197,8 @@ function soloBillChecker() {
             soloBillInput = null;
         }
     })
+
+    calcSoloBillTotal()
 }
 
 function soloTaxChecker() {
@@ -235,7 +244,9 @@ function test() {
     */
 
     /*checkSoloInput(soloBillInput, soloBillTax)*/
-    calcBillSum(billSum, soloBillInput)
+
+    calcBillSum(billSum, soloBillTotal)
+
     checkInput(NewBillSum, partyNum, tipPercent)
 
     /*
