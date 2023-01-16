@@ -7,9 +7,7 @@ var realTipPercent
 var soloBillInputArray = Array.new
 var soloBillTaxArray = Array.new
 var soloBillTotal
-var soloLength
 var soloCount
-var soloNum
 var billDisplay = document.getElementById("billDisplay")
 var NewBillSum
 var soloBillHolder = document.getElementById("solo-holder")
@@ -20,7 +18,7 @@ var soloBillDisplay
 var soloBillDisplayArray = Array.new
 var soloBillPayAmount
 var realSoloBillTax
-const initialValue = 0
+var soloBillContainerArray
 
 soloBillTotal = 0
 
@@ -33,16 +31,17 @@ function calcSoloBillTotal() {
         soloBillTotal = soloBillTotal + Number(element.value)
     })
 
-    console.log("This is solo bill total:")
-    console.log(soloBillTotal)
 }
 
 function calcPartyNum() {
 
-    if (soloNum >= partyNum) {
+    if (partyNum == "" && soloCount == "") {
+        console.log("All good here!")
+    } else if (soloCount >= partyNum) {
         console.log("You have too many solo payers. Please double check.")
+        /* Add some kind of alert here */
     } else {
-    partyNum = partyNum - soloNum
+    partyNum = partyNum - soloCount
     }
 }
 
@@ -51,7 +50,7 @@ function calcBillSum(billSum, soloBillTotal) {
 }
 
 function calcPartyShare() {
-    billTotal = (billSum * (1 + realTipPercent)) - soloBillTotal
+    billTotal = (NewBillSum * (1 + realTipPercent))
     partyShare = billTotal / partyNum
 }
 
@@ -157,18 +156,25 @@ function checkInput(billSum, partyNum, tipPercent) {
     }   
 }
 
-function checkSoloInput(soloBillInput, soloBillTax) {
-    soloBillDisplayArray = document.querySelectorAll("#solo-bill-display")
+function checkSoloInput() {
+    soloBillContainerArray = document.querySelectorAll("#solo-bill-container")
 
-    soloBillDisplayArray.forEach((element) => {
+    soloBillContainerArray.forEach((element) => {
+
+        soloBillInput = element.querySelector("#solo-bill").value
+
+        soloBillTax = element.querySelector("#solo-bill-tax").value
+
+        soloBillDisplay = element.querySelector("#solo-bill-display")
+
         if (soloBillInput == "") {
-            element.innerHTML = `Please enter an amount.`
+            soloBillDisplay.innerHTML = `Please enter an amount.`
         } else if (soloBillTax == "") {
-            element.innerHTML = `You should pay this amount: ${soloBillInput}`
+            soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
         } else {
             checkSoloTipPercent()
             calcSoloBill()
-            element.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
+            soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillPayAmount.toFixed(2)}`
         }
     })
 }
@@ -179,8 +185,6 @@ function soloBillChecker() {
     soloBillInputArray.forEach((element) => {
         if (element != null) {
             soloBillInput = element.value
-            console.log("This is your solo bill input:")
-            console.log(soloBillInput)
         } else {
             soloBillInput = null;
         }
@@ -195,8 +199,6 @@ function soloTaxChecker() {
     soloBillTaxArray.forEach((element) => {
         if (element != null) {
             soloBillTax = element.value
-            console.log("This is your solo tax input:")
-            console.log(soloBillTax)
         } else {
             soloBillTax = null;
         }
@@ -207,7 +209,6 @@ function gatherInfo() {
     billSum = document.getElementById("billSum").value
     partyNum = document.getElementById("partyNum").value
     tipPercent = document.getElementById("tipPercent").value
-    soloNum = document.getElementById("soloCount").value
 
     soloCount = document.getElementById("soloCount").value
 
@@ -221,27 +222,11 @@ function test() {
 
     calcPartyNum()
 
-    /*cloneSoloInput()
-
-    /*
-    This function is triggering a null type error
-    for solo bill input
-    Fix me later
-    Found a fix but adding the test function to the cloneSoloInput function
-    creates a similiar error (I didn't have a chance to read the actual discription)
-    */
-
-    /*checkSoloInput(soloBillInput, soloBillTax)*/
+    checkSoloInput()
 
     calcBillSum(billSum, soloBillTotal)
 
     checkInput(NewBillSum, partyNum, tipPercent)
-
-    /*
-    I need to create a new variable for the total bill sum
-    after solo bill has been taken from it
-    and apply the party tip amount to it
-    */
 }
 
 function yesnoCheck() {
@@ -260,4 +245,8 @@ the total number of people in the party
 Add a check to see if total solo bill is greater than the total bill
 Should I have the program react to input being filled vs the button?
 Add a couple of divs to keep track of who paid who?
+Add a check to see if solo bill total is greater than the whole bill
+Add a check for negative bill amount 
+(like when solo bill total is greater than the original bill)
+Solo Num input adjust when the check box is checked/unchecked
 */
