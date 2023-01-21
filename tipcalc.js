@@ -22,7 +22,7 @@ var soloBillContainerArray
 
 soloBillTotal = 0
 
-document.getElementById('solo-no-true').style.display = "none"
+document.getElementById('check-page-2').style.display = "none"
 
 function calcSoloBillTotal() {
     soloBillTotal = 0
@@ -58,7 +58,8 @@ function calcSoloBill() {
     soloBillPayAmount = (soloBillInput * (1 + realSoloBillTax))
 }
 
-/* Ask if they are intentionally leaving a tip greater than 100% 
+/* 
+Ask if they are intentionally leaving a tip greater than 100% 
 Change function so I can change and return input variable
 */
 
@@ -116,12 +117,13 @@ function createSoloCount(soloCount) {
 function cloneSoloInput() {
     soloCount = document.getElementById("soloCount").value
 
-    test()
-
     createSoloCount(soloCount)
     clearSoloCount(soloCount)
 
-    /* This function should
+    mainFunction()
+
+    /*
+    This function should
     clear the inputs created in the parent div
     then create new ones
     There should be a limit to the amount of
@@ -133,7 +135,16 @@ function cloneSoloInput() {
 
 function checkInput(billSum, partyNum, tipPercent) {
 
-    if (partyNum == "" && billSum == "" && tipPercent == "") {
+    /*if (soloCount >= partyNum) {
+        billDisplay.innerHTML = ("You have too many solo payers. Please double check.")
+        document.getElementById("soloCount").value = 0
+        /*
+        This is a step in the right direction
+        but I dont want it to delete the created solo bill divs 
+        As it is now it keeps setting solo count to 0 automatically
+        even after setting party num to a higher number
+        
+    } else */if (partyNum == "" && billSum == "" && tipPercent == "") {
         billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage.")
     } else if (partyNum == "" && billSum == "") {
         billDisplay.innerHTML = ("Please enter a party size and bill.")
@@ -161,7 +172,7 @@ function checkSoloInput() {
 
     soloBillContainerArray.forEach((element) => {
 
-        soloBillInput = element.querySelector("#solo-bill").value
+        soloBillInput = Number(element.querySelector("#solo-bill").value)
 
         soloBillTax = element.querySelector("#solo-bill-tax").value
 
@@ -170,7 +181,7 @@ function checkSoloInput() {
         if (soloBillInput == "") {
             soloBillDisplay.innerHTML = `Please enter an amount.`
         } else if (soloBillTax == "") {
-            soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput}`
+            soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput.toFixed(2)}`
         } else {
             checkSoloTipPercent()
             calcSoloBill()
@@ -181,7 +192,7 @@ function checkSoloInput() {
 
 function soloBillChecker() {
     soloBillInputArray = document.querySelectorAll("#solo-bill")
- 
+
     soloBillInputArray.forEach((element) => {
         if (element != null) {
             soloBillInput = element.value
@@ -217,7 +228,7 @@ function gatherInfo() {
     soloTaxChecker()
 }
 
-function test() {
+function mainFunction() {
     gatherInfo()
 
     calcPartyNum()
@@ -229,24 +240,47 @@ function test() {
     checkInput(NewBillSum, partyNum, tipPercent)
 }
 
+function clearSoloInputs() {
+    console.log("I don't do anything now but I will in the future!")
+    /*
+    This function will eventually clear the solo bill and solo tax inputs
+    */
+}
+
 function yesnoCheck() {
     if (document.getElementById('solo-no').checked) {
-        document.getElementById('solo-no-true').style.display = "block";
+        document.getElementById('check-page-2').style.display = "block";
     } else {
-        document.getElementById('solo-no-true').style.display = "none";
+        document.getElementById('check-page-2').style.display = "none";
+        document.getElementById("soloCount").value = 0
+        clearSoloInputs()
+        mainFunction()
+        /*
+        Find a way to see if I can store the old values of the
+        solo inputs and clear the input of solo count
+        Probably an array
+        I might want to transfer the information to other tabs
+        This function should also set party num to party num input value
+        */
     }
 }
 
-/* Does anyone want to pay for their own food?
+/*
 Is anyone paying for someone else?
 Has everyone paid?
 Add a check to see if the number of solo payers is greater than
 the total number of people in the party
 Add a check to see if total solo bill is greater than the total bill
-Should I have the program react to input being filled vs the button?
 Add a couple of divs to keep track of who paid who?
 Add a check to see if solo bill total is greater than the whole bill
-Add a check for negative bill amount 
+Add a check for negative bill amount
 (like when solo bill total is greater than the original bill)
-Solo Num input adjust when the check box is checked/unchecked
+Think of a way to keep the screen from getting too cluttered
+Maybe add tabs for solo payers and
+final tab to keep tabs of who paid paid/who has paid
+I'd like to make the website look like a check presenter from restaurants
+Also have the final tab look like a bill from a restaurant
+Use the font they use for their checks
+Create 3 divs with borders as a prototype for the check page design
+Rename tax to tip
 */
