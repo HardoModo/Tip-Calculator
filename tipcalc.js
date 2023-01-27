@@ -283,4 +283,8 @@ Also have the final tab look like a bill from a restaurant
 Use the font they use for their checks
 Create 3 divs with borders as a prototype for the check page design
 Rename tax to tip
+Add a reset button
+Have the background be a fancy restarant to fill the empty space
+Followed by a black outline for the bill container from restuatrants
+Followed by white for the part the has the info
 */
