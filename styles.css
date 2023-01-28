@@ -11,7 +11,7 @@ input[type=number] {
 }
 
 .check-page {
-  border: 1px solid black;
+  border: 5px solid red;
   padding-left: 20px;
   padding-right: 20px;
   height: 100%;
@@ -31,7 +31,7 @@ input[type=number] {
 }
 
 body {
-  background-color: turquoise;
+  /*background-color: turquoise;*/
   display: flex;
   justify-content: center;
   height: 100%;

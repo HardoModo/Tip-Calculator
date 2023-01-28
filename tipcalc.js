@@ -22,6 +22,9 @@ var soloBillContainerArray
 
 soloBillTotal = 0
 
+document.body.style.backgroundImage = "url('/landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
+document.body.style.backgroundSize = "Cover"
+
 document.getElementById('check-page-2').style.display = "none"
 
 function calcSoloBillTotal() {
