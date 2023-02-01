@@ -5,7 +5,7 @@ var partyShare
 var tipPercent
 var realTipPercent
 var soloBillInputArray = Array.new
-var soloBillTaxArray = Array.new
+var soloBillTipArray = Array.new
 var soloBillTotal
 var soloCount
 var billDisplay = document.getElementById("billDisplay")
@@ -13,19 +13,62 @@ var NewBillSum
 var soloBillHolder = document.getElementById("solo-holder")
 var soloBillContainer = document.getElementById("solo-bill-container")
 var soloBillInput
-var soloBillTax
+var soloBillTip
 var soloBillDisplay
 var soloBillDisplayArray = Array.new
 var soloBillPayAmount
-var realSoloBillTax
+var realSoloBillTip
 var soloBillContainerArray
+var landscapeImgArray = Array.new
+var height = window.innerHeight
+var width = screen.width
 
-soloBillTotal = 0
+function initialize() {
+    soloBillTotal = 0
 
-document.body.style.backgroundImage = "url('/landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
-document.body.style.backgroundSize = "Cover"
+    document.getElementById('bill-presenter-page-2').style.display = "none"
 
-document.getElementById('check-page-2').style.display = "none"
+    setBackground(height, width)
+}
+
+function landscapeBackground() {
+    var bg1 = "url('/landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
+    var bg2 = "url('/landscape_images/spencer-davis-vJsj-hgOEG0-unsplash.jpg')"
+    var bg3 = "url('/landscape_images/klara-kulikova-WcV2YkM3Dls-unsplash.jpg')"
+    var bg4 = "url('/landscape_images/dan-gold-E6HjQaB7UEA-unsplash.jpg')"
+
+    const backgroundArray = [bg1, bg2, bg3, bg4]
+
+    var test = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
+
+    document.body.style.backgroundImage = test
+
+    document.body.style.backgroundSize = "Cover"
+}
+
+function portraitBackground() {
+    var bg1 = "url('/portrait_images/bundo-kim-Pb9bUzH1nD8-unsplash.jpg')"
+    var bg2 = "url('/portrait_images/chris-liverani-oCsaxvGCehM-unsplash.jpg')"
+    var bg3 = "url('/portrait_images/markus-winkler-1gkvpUCQkmA-unsplash.jpg')"
+    var bg4 = "url('/portrait_images/stella-de-smit-raE26Th7NwE-unsplash.jpg')"
+
+    const backgroundArray = [bg1, bg2, bg3, bg4]
+
+    var test = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
+
+    document.body.style.backgroundImage = test
+
+    document.body.style.backgroundSize = "Cover"
+}
+
+function setBackground(height, width) {
+
+    if (width > height) {
+        landscapeBackground()
+    } else {
+        portraitBackground()
+    }
+}
 
 function calcSoloBillTotal() {
     soloBillTotal = 0
@@ -38,14 +81,7 @@ function calcSoloBillTotal() {
 
 function calcPartyNum() {
 
-    if (partyNum == "" && soloCount == "") {
-        console.log("All good here!")
-    } else if (soloCount >= partyNum) {
-        console.log("You have too many solo payers. Please double check.")
-        /* Add some kind of alert here */
-    } else {
     partyNum = partyNum - soloCount
-    }
 }
 
 function calcBillSum(billSum, soloBillTotal) {
@@ -58,7 +94,7 @@ function calcPartyShare() {
 }
 
 function calcSoloBill() {
-    soloBillPayAmount = (soloBillInput * (1 + realSoloBillTax))
+    soloBillPayAmount = (soloBillInput * (1 + realSoloBillTip))
 }
 
 /* 
@@ -78,14 +114,14 @@ function checkTipPercent() {
 }
 
 function checkSoloTipPercent() {
-    if (soloBillTax == 1) {
-        realSoloBillTax = .01
-    } else if (soloBillTax == 0) {
-        realSoloBillTax = 0
-    } else if (soloBillTax > 1) {
-        realSoloBillTax = soloBillTax / 100
+    if (soloBillTip == 1) {
+        realSoloBillTip = .01
+    } else if (soloBillTip == 0) {
+        realSoloBillTip = 0
+    } else if (soloBillTip > 1) {
+        realSoloBillTip = soloBillTip / 100
     } else {
-        realSoloBillTax = soloBillTax }
+        realSoloBillTip = soloBillTip }
 }
 
 function clearSoloCount(soloCount) {
@@ -120,34 +156,35 @@ function createSoloCount(soloCount) {
 function cloneSoloInput() {
     soloCount = document.getElementById("soloCount").value
 
+    if (soloCount > partyNum) {
+        soloCount = partyNum
+        /*
+        Fix me.
+        */
+    }
+
     createSoloCount(soloCount)
     clearSoloCount(soloCount)
 
     mainFunction()
-
-    /*
-    This function should
-    clear the inputs created in the parent div
-    then create new ones
-    There should be a limit to the amount of
-    boxes it can make
-    I'm thinking about allowing users to use the arrows
-    on the input box
-    */
 }
 
 function checkInput(billSum, partyNum, tipPercent) {
 
-    /*if (soloCount >= partyNum) {
+    if (soloCount > partyNum) {
         billDisplay.innerHTML = ("You have too many solo payers. Please double check.")
-        document.getElementById("soloCount").value = 0
         /*
         This is a step in the right direction
+        (for fixing error I forgot to document here)
         but I dont want it to delete the created solo bill divs 
         As it is now it keeps setting solo count to 0 automatically
-        even after setting party num to a higher number
+        even after setting party num to a higher number*/
         
-    } else */if (partyNum == "" && billSum == "" && tipPercent == "") {
+    } /*else if (soloCount = partyNum) {
+        billDisplay.innerHTML = ("Solo Count = Party Num")
+    }*/ else if (soloCount > partyNum) {
+        billDisplay.innerHTML = ("You have too many solo payers. Please double check.")
+    } else if (partyNum == "" && billSum == "" && tipPercent == "") {
         billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage.")
     } else if (partyNum == "" && billSum == "") {
         billDisplay.innerHTML = ("Please enter a party size and bill.")
@@ -161,12 +198,20 @@ function checkInput(billSum, partyNum, tipPercent) {
         billDisplay.innerHTML = ("Please enter your party size.")
     } else if (tipPercent == "") {
         realTipPercent = 0
-        calcPartyShare()    
-        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
+        calcPartyShare()
+        if (partyShare < 0) {
+            billDisplay.innerHTML = ("Please check your math")
+        } else {
+            billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
+        }
     } else {
         checkTipPercent()
         calcPartyShare()
-        billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
+        if (partyShare < 0) {
+            billDisplay.innerHTML = ("Please check your math")
+        } else {
+            billDisplay.innerHTML = `Each party member should pay this amount: ${partyShare.toFixed(2)}`
+        }
     }   
 }
 
@@ -177,13 +222,13 @@ function checkSoloInput() {
 
         soloBillInput = Number(element.querySelector("#solo-bill").value)
 
-        soloBillTax = element.querySelector("#solo-bill-tax").value
+        soloBillTip = element.querySelector("#solo-bill-tip").value
 
         soloBillDisplay = element.querySelector("#solo-bill-display")
 
         if (soloBillInput == "") {
             soloBillDisplay.innerHTML = `Please enter an amount.`
-        } else if (soloBillTax == "") {
+        } else if (soloBillTip == "") {
             soloBillDisplay.innerHTML = `You should pay this amount: ${soloBillInput.toFixed(2)}`
         } else {
             checkSoloTipPercent()
@@ -207,14 +252,14 @@ function soloBillChecker() {
     calcSoloBillTotal()
 }
 
-function soloTaxChecker() {
-    soloBillTaxArray = document.querySelectorAll("#solo-bill-tax")
+function soloTipChecker() {
+    soloBillTipArray = document.querySelectorAll("#solo-bill-tip")
 
-    soloBillTaxArray.forEach((element) => {
+    soloBillTipArray.forEach((element) => {
         if (element != null) {
-            soloBillTax = element.value
+            soloBillTip = element.value
         } else {
-            soloBillTax = null;
+            soloBillTip = null;
         }
     })
 }
@@ -228,7 +273,7 @@ function gatherInfo() {
 
     soloBillChecker()
 
-    soloTaxChecker()
+    soloTipChecker()
 }
 
 function mainFunction() {
@@ -243,23 +288,40 @@ function mainFunction() {
     checkInput(NewBillSum, partyNum, tipPercent)
 }
 
+function saveSoloInputs() {
+    console.log("Old Solo Inputs saved")
+}
+
+
 function clearSoloInputs() {
-    console.log("I don't do anything now but I will in the future!")
-    /*
-    This function will eventually clear the solo bill and solo tax inputs
-    */
+    console.log("Solo Inputs cleared.")
+}
+
+function reviveSoloInputs() {
+    console.log("Solo Inputs revived.")
+}
+
+function resetPage1() {
+    console.log("Page One Reset.")
+}
+
+function resetPage2() {
+    console.log("Page Two Reset.")
 }
 
 function yesnoCheck() {
     if (document.getElementById('solo-no').checked) {
-        document.getElementById('check-page-2').style.display = "block";
+        document.getElementById('bill-presenter-page-2').style.display = "flex";
+        reviveSoloInputs()
+        mainFunction()
     } else {
-        document.getElementById('check-page-2').style.display = "none";
+        document.getElementById('bill-presenter-page-2').style.display = "none";
         document.getElementById("soloCount").value = 0
+        saveSoloInputs()
         clearSoloInputs()
         mainFunction()
         /*
-        Find a way to see if I can store the old values of the
+        Find a way to store the old values of the
         solo inputs and clear the input of solo count
         Probably an array
         I might want to transfer the information to other tabs
@@ -268,26 +330,22 @@ function yesnoCheck() {
     }
 }
 
+initialize()
+
 /*
-Is anyone paying for someone else?
-Has everyone paid?
-Add a check to see if the number of solo payers is greater than
-the total number of people in the party
-Add a check to see if total solo bill is greater than the total bill
-Add a couple of divs to keep track of who paid who?
-Add a check to see if solo bill total is greater than the whole bill
-Add a check for negative bill amount
-(like when solo bill total is greater than the original bill)
-Think of a way to keep the screen from getting too cluttered
-Maybe add tabs for solo payers and
-final tab to keep tabs of who paid paid/who has paid
-I'd like to make the website look like a check presenter from restaurants
-Also have the final tab look like a bill from a restaurant
+TO DO:
+
 Use the font they use for their checks
-Create 3 divs with borders as a prototype for the check page design
-Rename tax to tip
-Add a reset button
-Have the background be a fancy restarant to fill the empty space
-Followed by a black outline for the bill container from restuatrants
-Followed by white for the part the has the info
+Change the font of the "check"
+The top text of the check should be cursive, maybe
+And the rest should match as close to the font
+normally used for checks
+Be sure to thank the photographers
+!!!Watch out for when people rotate their phone screens
+Thank the photographer with a link fixed at the bottom of the page
+The solo input/total party share bug is caused by
+the total party share before division not getting reset to
+the input value of the party bill without the solo input subtractions
+Maybe display equation so party verify math
+Start/finish readme file
 */

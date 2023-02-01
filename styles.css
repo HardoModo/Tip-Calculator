@@ -10,40 +10,42 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+h1 {
+  font-family: cursive;
+}
+
 .check-page {
-  border: 5px solid red;
   padding-left: 20px;
   padding-right: 20px;
   height: 100%;
 }
 
-#bill-presenter * {
+.bill-presenter * {
   background-color: white;
   color: black;
 }
 
 #check-page-container {
   height: 90%;
-  width: 30vw;
+  width: 25vw;
   display: flex;
   flex-flow: column;
   margin: 0;
 }
 
 body {
-  /*background-color: turquoise;*/
   display: flex;
   justify-content: center;
   height: 100%;
   margin: 0;
 }
 
-#bill-presenter {
+.bill-presenter {
   background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
   height: 100vh;
-  width: 40vw;
+  width: 30vw;
 }
