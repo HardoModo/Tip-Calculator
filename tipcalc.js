@@ -32,10 +32,10 @@ function initialize() {
 }
 
 function landscapeBackground() {
-    var bg1 = "url('/landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
-    var bg2 = "url('/landscape_images/spencer-davis-vJsj-hgOEG0-unsplash.jpg')"
-    var bg3 = "url('/landscape_images/klara-kulikova-WcV2YkM3Dls-unsplash.jpg')"
-    var bg4 = "url('/landscape_images/dan-gold-E6HjQaB7UEA-unsplash.jpg')"
+    var bg1 = "url('landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
+    var bg2 = "url('landscape_images/spencer-davis-vJsj-hgOEG0-unsplash.jpg')"
+    var bg3 = "url('landscape_images/klara-kulikova-WcV2YkM3Dls-unsplash.jpg')"
+    var bg4 = "url('landscape_images/dan-gold-E6HjQaB7UEA-unsplash.jpg')"
 
     const backgroundArray = [bg1, bg2, bg3, bg4]
 
@@ -89,7 +89,11 @@ function calcBillSum(billSum, soloBillTotal) {
 }
 
 function calcPartyShare() {
-    billTotal = (NewBillSum * (1 + realTipPercent))
+    if (document.getElementById('ptt-flat').checked) {
+        billTotal = Number(NewBillSum) + Number(tipPercent)
+    } else {
+        billTotal = (NewBillSum * (1 + realTipPercent))
+    }
     partyShare = billTotal / partyNum
 }
 

@@ -21,11 +21,17 @@
                 <input type="number" id="partyNum" name="partyNum" value="1" oninput="mainFunction()"><br><br>
 
                 <label for="soloBill">Would anyone like to pay for their own meal?</label><br>
-                <input type="checkbox" id="solo-no" name="soloBill" value="No" onclick="yesnoCheck()">
+                <input type="checkbox" id="solo-no" name="soloBill" onclick="yesnoCheck()">
                 <label for="solo-no">Yes</label><br><br>
     
                 <label for="tipPercent">What percentage tip would you like to leave?</label><br>
                 <input type="number" id="tipPercent" name="tipPercent" value="0" oninput="mainFunction()"><br><br>
+
+                <legend>Would your party like to blah blah?</label><br><br>
+                <input type="radio" id="ptt-percentage" name="partyTipType" oninput="mainFunction()" checked>
+                <label for="ptt-percentage">Percentage</label><br><br>
+                <input type="radio" id="ptt-flat" name="partyTipType" oninput="mainFunction()">
+                <label for="ptt-flat">Flat Value</label><br><br>
     
                 <div id="billDisplay">Please enter a party size, bill and tip percentage</div><br>
 
