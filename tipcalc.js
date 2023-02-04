@@ -33,11 +33,6 @@ function initialize() {
 }
 
 function landscapeBackground() {
-    /*document.getElementById("bill-presenter-page-1").style.width = "300px"
-    document.getElementById("bill-presenter-page-2").style.width = "300px"
-    document.getElementById("check-page-1").style.width = "300px"
-    document.getElementById("check-page-2").style.width = "300px"*/
-
     var bg1 = "url('landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
     var bg2 = "url('landscape_images/spencer-davis-vJsj-hgOEG0-unsplash.jpg')"
     var bg3 = "url('landscape_images/klara-kulikova-WcV2YkM3Dls-unsplash.jpg')"
@@ -58,9 +53,7 @@ function portraitBackground() {
 
     const backgroundArray = [bg1, bg2, bg3, bg4]
 
-    var test = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
-
-    document.body.style.backgroundImage = test
+    document.body.style.backgroundImage = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
 
     document.body.style.backgroundSize = "Cover"
 }
@@ -127,7 +120,7 @@ function checkSoloTipPercent() {
         realSoloBillTip = soloBillTip }
 }
 
-function clearSoloCount(soloCount, partyNum) {
+function clearSoloCount(soloCount) {
     let soloHolderChildren = document.getElementById("solo-holder").childElementCount
 
     if (soloHolderChildren > soloCount) {
@@ -147,7 +140,6 @@ function clearSoloCount(soloCount, partyNum) {
 }
 
 function createSoloCount(targetNum) {
-
     for (let index = 0; index < targetNum; index++) {         
         
         var clonedDiv = soloBillContainer.cloneNode(true)
