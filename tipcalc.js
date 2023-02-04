@@ -33,6 +33,11 @@ function initialize() {
 }
 
 function landscapeBackground() {
+    /*document.getElementById("bill-presenter-page-1").style.width = "300px"
+    document.getElementById("bill-presenter-page-2").style.width = "300px"
+    document.getElementById("check-page-1").style.width = "300px"
+    document.getElementById("check-page-2").style.width = "300px"*/
+
     var bg1 = "url('landscape_images/stefan-vladimirov-Q_Moi2xjieU-unsplash.jpg')"
     var bg2 = "url('landscape_images/spencer-davis-vJsj-hgOEG0-unsplash.jpg')"
     var bg3 = "url('landscape_images/klara-kulikova-WcV2YkM3Dls-unsplash.jpg')"
@@ -40,9 +45,7 @@ function landscapeBackground() {
 
     const backgroundArray = [bg1, bg2, bg3, bg4]
 
-    var test = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
-
-    document.body.style.backgroundImage = test
+    document.body.style.backgroundImage = backgroundArray[Math.floor(Math.random() * backgroundArray.length)]
 
     document.body.style.backgroundSize = "Cover"
 }
@@ -284,44 +287,13 @@ function secondaryFunction() {
     cloneSoloInput()
 }
 
-function saveSoloInputs() {
-    console.log("Old Solo Inputs saved")
-}
-
-function clearSoloInputs() {
-    console.log("Solo Inputs cleared.")
-}
-
-function reviveSoloInputs() {
-    console.log("Solo Inputs revived.")
-}
-
-function resetPage1() {
-    console.log("Page One Reset.")
-}
-
-function resetPage2() {
-    console.log("Page Two Reset.")
-}
-
 function yesnoCheck() {
     if (document.getElementById('solo-no').checked) {
         document.getElementById('bill-presenter-page-2').style.display = "flex";
-        reviveSoloInputs()
         mainFunction()
     } else {
         document.getElementById('bill-presenter-page-2').style.display = "none";
         document.getElementById("soloCount").value = 0
-        saveSoloInputs()
-        clearSoloInputs()
-        mainFunction()
-        /*
-        Find a way to store the old values of the
-        solo inputs and clear the input of solo count
-        Probably an array
-        I might want to transfer the information to other tabs
-        This function should also set party num to party num input value
-        */
     }
 }
 
@@ -333,9 +305,6 @@ TO DO:
 Be sure to thank the photographers
 !!!Watch out for when people rotate their phone screens
 Thank the photographer with a link fixed at the bottom of the page
-The solo input/total party share bug is caused by
-the total party share before division not getting reset to
-the input value of the party bill without the solo input subtractions
 Maybe display equation so party verify math
 Start/finish readme file
 */
