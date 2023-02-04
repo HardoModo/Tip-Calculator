@@ -11,13 +11,22 @@ input[type=number] {
 }
 
 h1 {
-  font-family: cursive;
+  font-style: italic;
 }
+
+/* input {
+  width: 50px;
+}*/
 
 .check-page {
   padding-left: 20px;
   padding-right: 20px;
   height: 100%;
+  overflow: auto;
+}
+
+.radio-container {
+  display: flex;
 }
 
 .bill-presenter * {
@@ -31,6 +40,15 @@ h1 {
   display: flex;
   flex-flow: column;
   margin: 0;
+}
+
+#solo-bill-container {
+  display: flex;
+  flex-flow: column;
+}
+
+#test {
+  display: flex;
 }
 
 body {

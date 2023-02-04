@@ -22,6 +22,7 @@ var soloBillContainerArray
 var landscapeImgArray = Array.new
 var height = window.innerHeight
 var width = screen.width
+var targetNum
 
 function initialize() {
     soloBillTotal = 0
@@ -47,10 +48,10 @@ function landscapeBackground() {
 }
 
 function portraitBackground() {
-    var bg1 = "url('/portrait_images/bundo-kim-Pb9bUzH1nD8-unsplash.jpg')"
-    var bg2 = "url('/portrait_images/chris-liverani-oCsaxvGCehM-unsplash.jpg')"
-    var bg3 = "url('/portrait_images/markus-winkler-1gkvpUCQkmA-unsplash.jpg')"
-    var bg4 = "url('/portrait_images/stella-de-smit-raE26Th7NwE-unsplash.jpg')"
+    var bg1 = "url('portrait_images/bundo-kim-Pb9bUzH1nD8-unsplash.jpg')"
+    var bg2 = "url('portrait_images/chris-liverani-oCsaxvGCehM-unsplash.jpg')"
+    var bg3 = "url('portrait_images/markus-winkler-1gkvpUCQkmA-unsplash.jpg')"
+    var bg4 = "url('portrait_images/stella-de-smit-raE26Th7NwE-unsplash.jpg')"
 
     const backgroundArray = [bg1, bg2, bg3, bg4]
 
@@ -101,11 +102,6 @@ function calcSoloBill() {
     soloBillPayAmount = (soloBillInput * (1 + realSoloBillTip))
 }
 
-/* 
-Ask if they are intentionally leaving a tip greater than 100% 
-Change function so I can change and return input variable
-*/
-
 function checkTipPercent() {
     if (tipPercent == 1) {
         realTipPercent = .01
@@ -128,7 +124,7 @@ function checkSoloTipPercent() {
         realSoloBillTip = soloBillTip }
 }
 
-function clearSoloCount(soloCount) {
+function clearSoloCount(soloCount, partyNum) {
     let soloHolderChildren = document.getElementById("solo-holder").childElementCount
 
     if (soloHolderChildren > soloCount) {
@@ -147,9 +143,9 @@ function clearSoloCount(soloCount) {
     }
 }
 
-function createSoloCount(soloCount) {
-    
-    for (let index = 0; index < soloCount; index++) {         
+function createSoloCount(targetNum) {
+
+    for (let index = 0; index < targetNum; index++) {         
         
         var clonedDiv = soloBillContainer.cloneNode(true)
 
@@ -159,34 +155,24 @@ function createSoloCount(soloCount) {
 
 function cloneSoloInput() {
     soloCount = document.getElementById("soloCount").value
+    partyNum = document.getElementById("partyNum").value
 
     if (soloCount > partyNum) {
-        soloCount = partyNum
-        /*
-        Fix me.
-        */
+        targetNum = partyNum
+    } else {
+        targetNum = soloCount
     }
 
-    createSoloCount(soloCount)
-    clearSoloCount(soloCount)
+    createSoloCount(targetNum)
+    clearSoloCount(targetNum)
 
     mainFunction()
 }
 
 function checkInput(billSum, partyNum, tipPercent) {
+    partyNumInput = document.getElementById("partyNum").value
 
-    if (soloCount > partyNum) {
-        billDisplay.innerHTML = ("You have too many solo payers. Please double check.")
-        /*
-        This is a step in the right direction
-        (for fixing error I forgot to document here)
-        but I dont want it to delete the created solo bill divs 
-        As it is now it keeps setting solo count to 0 automatically
-        even after setting party num to a higher number*/
-        
-    } /*else if (soloCount = partyNum) {
-        billDisplay.innerHTML = ("Solo Count = Party Num")
-    }*/ else if (soloCount > partyNum) {
+    if (soloCount >= partyNumInput) {
         billDisplay.innerHTML = ("You have too many solo payers. Please double check.")
     } else if (partyNum == "" && billSum == "" && tipPercent == "") {
         billDisplay.innerHTML = ("Please enter a party size, bill and tip percentage.")
@@ -283,19 +269,24 @@ function gatherInfo() {
 function mainFunction() {
     gatherInfo()
 
-    calcPartyNum()
-
     checkSoloInput()
+
+    calcPartyNum()
 
     calcBillSum(billSum, soloBillTotal)
 
     checkInput(NewBillSum, partyNum, tipPercent)
 }
 
+function secondaryFunction() {
+    gatherInfo()
+
+    cloneSoloInput()
+}
+
 function saveSoloInputs() {
     console.log("Old Solo Inputs saved")
 }
-
 
 function clearSoloInputs() {
     console.log("Solo Inputs cleared.")
@@ -339,11 +330,6 @@ initialize()
 /*
 TO DO:
 
-Use the font they use for their checks
-Change the font of the "check"
-The top text of the check should be cursive, maybe
-And the rest should match as close to the font
-normally used for checks
 Be sure to thank the photographers
 !!!Watch out for when people rotate their phone screens
 Thank the photographer with a link fixed at the bottom of the page
