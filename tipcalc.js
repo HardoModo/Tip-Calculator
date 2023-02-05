@@ -283,9 +283,15 @@ function yesnoCheck() {
     if (document.getElementById('solo-no').checked) {
         document.getElementById('bill-presenter-page-2').style.display = "flex";
         mainFunction()
+        if (height > width) {
+            document.body.style.width = "200vw"
+            document.getElementById('flex-container').style.width = "200vw"
+        }
     } else {
         document.getElementById('bill-presenter-page-2').style.display = "none";
         document.getElementById("soloCount").value = 0
+        document.body.style.width = "100vw"
+        document.getElementById('flex-container').style.width = "100vw"
     }
 }
 
