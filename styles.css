@@ -10,10 +10,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-h1 {
-  font-style: italic;
-}
-
 /* input {
   width: 50px;
 }*/
@@ -29,19 +25,8 @@ h1 {
   display: flex;
 }
 
-.bill-presenter * {
-  background-color: white;
-  color: black;
-}
-
-#check-page-container {
-  min-height: 90%;
-  min-width: 25vw;
-  max-width: 85%;
-  /*width: fit-content;*/
-  display: flex;
-  flex-flow: column;
-  margin: 0;
+h1 {
+  font-style: italic;
 }
 
 #solo-bill-container {
@@ -61,13 +46,39 @@ body {
   margin: 0;
 }
 
+.check-page {
+  background-image: url("images/olga-thelavart-vS3idIiYxX0-unsplash.jpg");
+  background-size: cover;
+}
+
+.check-page-container {
+  height: 80vh;
+  width: 70vw;
+  display: flex;
+  flex-flow: column;
+  margin: 0;
+}
+
 .bill-presenter {
-  background-color: black;
+  background-image: url("images/frantisek-g-XXuVXLy5gHU-unsplash.jpg");
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column;
   height: 90vh;
-  min-width: 30vw;
-  max-width: 90vw;
+  width: 80vw;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .check-page-container {
+    height: 80vh;
+    width: 25vw;
+  }
+
+  .bill-presenter {
+    height: 90vh;
+    width: 30vw;
+  }
 }
