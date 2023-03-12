@@ -4,6 +4,8 @@ This is a web-based application that allows you to calculate how much each perso
 
 ## Usage
 
+https://hardomodo.github.io/Tip-Calculator/
+
 As you type in the bill amount, party size, and tip amount, the app will automatically update the total amount due. You can see the total amount due change in real-time as you adjust these values. If you choose to remove your own portion from the bill, the app will adjust the total amount due accordingly.
 
 ## Additional Features
