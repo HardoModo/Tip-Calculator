@@ -11,7 +11,7 @@ input[type=number] {
 }
 
 input[type=number] {
-  width: 10em;
+  width: 7em;
 }
 
 #flex-container {
@@ -80,6 +80,10 @@ body {
 
 @media only screen and (min-width: 768px) {
   /* For desktop: */
+  input[type=number] {
+    width: 10em;
+  }
+
   .check-page-container {
     height: 80vh;
     width: 25vw;
